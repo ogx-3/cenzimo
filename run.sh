@@ -1,5 +1,4 @@
 #!/bin/bash
-pip install --upgrade pip
 if [ -z "$VCAP_APP_PORT" ];
 then SERVER_PORT=5000;
 else SERVER_PORT="$VCAP_APP_PORT";
