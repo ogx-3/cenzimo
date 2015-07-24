@@ -1,7 +1,7 @@
 #From <image that you want to use for your container> In this example, we use the Ubuntu image
 From ubuntu
 
-RUN pip install --upgrade pip 
+RUN apt-get update pip 
 RUN apt-get update && apt-get install -y wget
 
 #install docker
