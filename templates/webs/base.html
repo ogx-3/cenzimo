@@ -19,10 +19,10 @@
   <div class="container"> <a class="navbar-brand" href="index.html"><i class="fa fa-paper-plane"></i> cenzimo</a>
       <div class="menu"> <a class="toggleMenu" href="#"><img src="{% static "images/nav_icon.png" %}" alt="" /> </a>
       <ul class="nav" id="nav">
-        <li class="current"><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="contact.html">Contact Us</a></li>
+          <li class="current"><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About Us</a></li>
+          <li><a href="{% url 'service' %}">Services</a></li>
+          <li><a href="{% url 'contact' %}">Contact Us</a></li>
         <div class="clear"></div>
       </ul>
       <script type="text/javascript" src="{% static "js/responsive-nav.js" %}"></script> 
@@ -190,7 +190,7 @@
   <div class="footer_bottom">
     <div class="follow-us"> <a class="fa fa-facebook social-icon" href="#"></a> <a class="fa fa-twitter social-icon" href="#"></a> <a class="fa fa-linkedin social-icon" href="#"></a> <a class="fa fa-google-plus social-icon" href="#"></a> </div>
     <div class="copy">
-      <p>Copyright &copy; 2015 Company Name. More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+        <p>Copyright &copy; 2015 cenzimo.</p>
     </div>
   </div>
   {% endblock %}

@@ -13,3 +13,12 @@ class Views():
 
 def home(request):
   return render_to_response('webs/index.html')
+
+def about(request):
+  return render_to_response('webs/about.html')
+
+def service(request):
+  return render_to_response('webs/services.html')
+
+def contact(request):
+  return render_to_response('webs/contact.html')
