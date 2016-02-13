@@ -10,7 +10,6 @@ RUN wget -qO- https://get.docker.com/ | sh
 RUN apt-get install -y python-pip && wget https://bootstrap.pypa.io/ez_setup.py -O -| python
 RUN apt-get update && apt-get install -y python-pip 
 # RUN apt-get install django
-RUN pip install --upgrade pip
 
 #install ice
 RUN wget https://static-ice.ng.bluemix.net/icecli-3.0.zip && pip install icecli-3.0.zip

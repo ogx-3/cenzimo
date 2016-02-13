@@ -1,4 +1,6 @@
 python-2.7.10
+pip-7.1.0
+however-8.0.2
 requests
 django
 django-bootstrap3
