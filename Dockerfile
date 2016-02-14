@@ -6,7 +6,6 @@ RUN apt-get update && apt-get install -y wget
 #install docker
 RUN wget -qO- https://get.docker.com/ | sh
 
-RUN pip install --upgrade pip
 #install python, pip, setuptools
 RUN apt-get install -y python-pip && wget https://bootstrap.pypa.io/ez_setup.py -O -| python
 RUN apt-get update && apt-get install -y python-pip 
