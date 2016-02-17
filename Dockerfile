@@ -1,34 +1,45 @@
 #From <image that you want to use for your container> In this example, we use the Ubuntu image
-FROM ubuntu:14.04
+# FROM ubuntu:14.04
+FROM python:3.4
 
-MAINTAINER cenzimo "3ogx.com@gmail.com"
-
-RUN apt-get update && apt-get install -y wget
+MAINTAINER cenzimo beiwei "3ogx.com@gmail.com"
 
 #install docker
 RUN wget -qO- https://get.docker.com/ | sh
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y
 
-# Install Python Setuptools
-RUN apt-get install -y python-setuptools
+RUN apt-get install -y apt-utils
+# Libs required for geospatial libraries on Debian...
+RUN apt-get -y install binutils libproj-dev gdal-bin
 
-#install python, pip, setuptools
-# RUN easy_install pip
-RUN apt-get install -y python-pip && wget https://bootstrap.pypa.io/ez_setup.py -O -| python
-RUN apt-get update && apt-get install -y python-pip 
+RUN apt-get install -y nano wget
+# build dependencies for postgres and image bindings
+RUN apt-get install -y python-imaging python-psycopg2
 
-#install ice
-# RUN wget https://static-ice.ng.bluemix.net/icecli-3.0.zip && pip install icecli-3.0.zip
+##############################################################################
+# setup startup script for gunicord WSGI service 
+##############################################################################
 
-#install cf
-# RUN wget "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.11.3&source=github-rel" --output-document=cf.tgz && tar -xvf cf.tgz  && mv cf /usr/bin/cf 
+RUN groupadd webapps
+RUN useradd webapp -G webapps
+RUN mkdir -p /var/log/webapp/ && chown -R webapp /var/log/webapp/ && chmod -R u+rX /var/log/webapp/
+RUN mkdir -p /var/run/webapp/ && chown -R webapp /var/run/webapp/ && chmod -R u+rX /var/run/webapp/
 
-ADD ./ /var/app/
-WORKDIR /var/app/
+##############################################################################
+# Install and configure supervisord
+##############################################################################
+
+RUN apt-get install -y supervisor
+RUN mkdir -p /var/log/supervisor
+ADD ./deploy/supervisor_conf.d/webapp.conf /etc/supervisor/conf.d/webapp.conf
+
+ADD . /var/app/cenzimo
+WORKDIR /var/app/cenzimo
 # Add and install Python modules
-RUN pip install -r /var/app/current/requirements.txt
+RUN pip install -r requirements.txt
 
-EXPOSE 5000
+CMD ["sh", "./deploy/container_start.sh"]
+EXPOSE 8002
 
-ENTRYPOINT ["python", "/var/app/current/manage.py", "migrate"]
-ENTRYPOINT ["python", "/var/app/current/manage.py", "runserver"]
-# CMD ["python", "manage.py runserver"]
