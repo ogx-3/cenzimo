@@ -22,13 +22,13 @@ RUN apt-get update && apt-get install -y python-pip
 #install cf
 # RUN wget "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.11.3&source=github-rel" --output-document=cf.tgz && tar -xvf cf.tgz  && mv cf /usr/bin/cf 
 
-ADD ./ /var/app/cenzimo/
-WORKDIR /var/app/cenzimo/
+ADD ./ /var/app/
+WORKDIR /var/app/
 # Add and install Python modules
-RUN pip install -r /var/app/cenzimo/requirements.txt
+RUN pip install -r /var/app/current/requirements.txt
 
 EXPOSE 5000
 
-ENTRYPOINT ["python", "/var/app/cenzimo/manage.py", "migrate"]
-ENTRYPOINT ["python", "/var/app/cenzimo/manage.py", "runserver"]
+ENTRYPOINT ["python", "/var/app/current/manage.py", "migrate"]
+ENTRYPOINT ["python", "/var/app/current/manage.py", "runserver"]
 # CMD ["python", "manage.py runserver"]
