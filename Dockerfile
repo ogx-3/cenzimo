@@ -23,12 +23,11 @@ RUN apt-get update && apt-get install -y python-pip
 # RUN wget "https://cli.run.pivotal.io/stable?release=linux64-binary&version=6.11.3&source=github-rel" --output-document=cf.tgz && tar -xvf cf.tgz  && mv cf /usr/bin/cf 
 
 # Add and install Python modules
-# ADD . /cenzimo.1
-# WORKDIR /cenzimo.1
 RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-WORKDIR /var/app/current/
-RUN python manage.py runserver
+ADD ./ /var/app/cenzimo/
+WORKDIR /var/app/cenzimo/
+ENTRYPOINT ["python" "/var/app/cenzimo/manage.py runserver"]
 # CMD ["python", "manage.py runserver"]
