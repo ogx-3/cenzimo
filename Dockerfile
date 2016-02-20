@@ -14,7 +14,7 @@ RUN apt-get install -y apt-utils
 # Libs required for geospatial libraries on Debian...
 RUN apt-get -y install binutils libproj-dev gdal-bin
 
-RUN apt-get install -y nano wget
+RUN apt-get install -y  wget
 # build dependencies for postgres and image bindings
 RUN apt-get install -y python-imaging python-psycopg2
 
